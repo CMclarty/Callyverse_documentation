@@ -52,7 +52,7 @@ Personal production server running since 2019. Used for self hosting key apps, r
 
 ### Partial Docker Compose file for Nextcloud server
 ---
-version: "2.1"
+'''version: "2.1"
 services:
   nextcloud:
     image: linuxserver/nextcloud
@@ -74,7 +74,7 @@ services:
 #      - DOCKER_MODS=linuxserver/mods:universal-cron
     networks:
       - callyverse
-
+'''
 ### Example config file - Fstab snippet for MergerFS array
 
 ## Sigma

@@ -52,7 +52,8 @@ Personal production server running since 2019. Used for self hosting key apps, r
 
 ### Partial Docker Compose file for Nextcloud server
 ---
-'''version: "2.1"
+```
+version: "2.1"
 services:
   nextcloud:
     image: linuxserver/nextcloud
@@ -74,23 +75,27 @@ services:
 #      - DOCKER_MODS=linuxserver/mods:universal-cron
     networks:
       - callyverse
-'''
+```
 ### Example config file - Fstab snippet for MergerFS array
 
+```
 ## Sigma
 #### HDDs
+
 UUID="42d9b894-4edc-4644-94e8-dbd33b62cd11" /mnt/mu ext4 defaults 0 0
 UUID="e7cf54fd-1d53-444b-9070-90689fc9ce9c" /mnt/rho ext4 defaults 0 0
 
 #### MergerFS
+
 /mnt/mu:/mnt/rho /mnt/sigma fuse.mergerfs use_ino,cache.files=partial,fsname=sigma,dropcacheonclose=true,allow_other,category.create=mfs 0 0
+```
 
 ## Challenges
 
-**Challenge**: Unable to get a static IP from my residential address, kept losing access.
+**Challenge**: Unable to get a static IP from my residential address, kept losing access  
 **Solution**: Researched and setup DynDNS service to automatically update Cloudlfare records on a regular basis
 
-**Challenge**: Full raid backup of every file was cost-prohibitive
+**Challenge**: Full raid backup of every file was cost-prohibitive  
 **Solution**: Seperated physical hard drives into two seperate arrays depending on the redundancy requirements
 
 ## Future Improvements
@@ -99,4 +104,3 @@ UUID="e7cf54fd-1d53-444b-9070-90689fc9ce9c" /mnt/rho ext4 defaults 0 0
 - Add automated testing for configuration changes
 - Start exploring Terraform and similar tools
 - Investigate and learn CI/CD techniques
-

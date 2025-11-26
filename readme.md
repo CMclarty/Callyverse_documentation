@@ -1,10 +1,10 @@
 # Home Infrastructure Lab
 
-Self-hosted Linux server running containerized applications with 40TB+ of storage in areas, NGINX reverse proxy with full remote access over HTTPS
+Self-hosted Linux server running containerized applications with 42TB of storage, NGINX reverse proxy with full remote access over HTTPS
 
 ## Overview
 
-Personal production server running since 2019. Used for self hosting key apps, remote storage and backup as well as a learning excercise - Linux administration, Docker, networking, and infrastructure automation.
+Personal production server running since 2019. Used for self hosting key apps, remote storage and backup as well as a learning exercise - Linux administration, Docker, networking, and infrastructure automation.
 
 ## Architecture
 
@@ -19,15 +19,18 @@ Personal production server running since 2019. Used for self hosting key apps, r
 ## Examples of Services running
 
 - Nextcloud CMS and backup solution
+    - Replacement for Dropbox/Google photos and similar accounts.
 - Jellyfin media server
     - Nvidia drivers to allow on-the-fly transcoding of media for streaming.
 - Bitwarden password manager
+    - Full access to and syncing of all passwords, 2FA and essential key documents
 - Mealio recipe management system
+    - Storage and CMS for personal recipes and a list of meals to try!
 
 ## Example skills 
 
 **Linux Administration**
-- User and permission managemen (file permissions and similar access issues)
+- User and permission management (file permissions and similar access issues)
 - System monitoring and logs (`journalctl`, `htop`, 'du', 'grep', log analysis)
 - Package management and updates (APT etc)
 - Storage configuration and management (mdadm arrays, fstab file, docker)
@@ -40,8 +43,8 @@ Personal production server running since 2019. Used for self hosting key apps, r
 
 **Networking & Security**
 - Reverse proxy configuration
-- SSL certificate generation and renewal (Certbot, Cloudlfare)
-- Firewall rules (UFW/iptables)
+- SSL certificate generation and renewal (Certbot, Cloudflare)
+- Firewall rules (UFW/iptables, Fail2Ban)
 - Domain DNS configuration, dynamic DNS updates
 - SSH hardening (Keys, removing password, automatic blocking of malicious requests)
 
@@ -67,7 +70,7 @@ services:
       - /mnt/theta/nextcloud:/data
       - /mnt/sigma:/mnt/sigma
       - /mnt/theta:/mnt/theta
-      - /mnt/:/mnt/
+      - /mnt/storage:/mnt/
 #    ports:
 #      - 5555:443
     restart: unless-stopped
@@ -76,7 +79,7 @@ services:
     networks:
       - callyverse
 ```
-### Example config file - Fstab snippet for MergerFS array
+### Example config file - Fstab snippet for MergerFS array for a simplified file system
 
 ```
 ## Sigma
@@ -97,6 +100,13 @@ UUID="e7cf54fd-1d53-444b-9070-90689fc9ce9c" /mnt/rho ext4 defaults 0 0
 
 **Challenge**: Full raid backup of every file was cost-prohibitive  
 **Solution**: Seperated physical hard drives into two seperate arrays depending on the redundancy requirements
+
+**Challenge**: I was struggling to find a reliable and consistent form of health checks for the system. All open source options didn't quite gel for my use-case
+**Solution**: Used AI tools to help develop a bash script to send automated health checks and statistics to my Discord on a daily basis
+
+- Tracks: Resource usage, container health, HTTPS availability, disk space, SSL expiry
+- Daily updates at 9am, with reports sent immediately when checks fail
+- Connects to Discord webhook, with alerts automatically sent to my phone
 
 ## Future Improvements
 

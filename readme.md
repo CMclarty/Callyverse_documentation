@@ -99,7 +99,7 @@ UUID="e7cf54fd-1d53-444b-9070-90689fc9ce9c" /mnt/rho ext4 defaults 0 0
 **Solution**: Researched and setup DynDNS service to automatically update Cloudlfare records on a regular basis
 
 **Challenge**: Full raid backup of every file was cost-prohibitive  
-**Solution**: Seperated physical hard drives into two seperate arrays depending on the redundancy requirements
+**Solution**: Separated physical hard drives into two separate arrays depending on the redundancy requirements
 
 **Challenge**: I was struggling to find a reliable and consistent form of health checks for the system. All open source options didn't quite gel for my use-case
 **Solution**: Used AI tools to help develop a bash script to send automated health checks and statistics to my Discord on a daily basis
